@@ -31,11 +31,15 @@ public class InterfazCarrera extends javax.swing.JFrame {
         Donkey = new javax.swing.JLabel();
         Sonic = new javax.swing.JLabel();
         Fondo = new javax.swing.JLabel();
+        jProgressBar1 = new javax.swing.JProgressBar();
+        jProgressBar2 = new javax.swing.JProgressBar();
+        jProgressBar3 = new javax.swing.JProgressBar();
+        jProgressBar4 = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Toad.setIcon(new javax.swing.ImageIcon("/Users/patriciaaguayo/Desktop/Hilos/CarreraHilos/src/main/Resources/Reducida/Toad.png")); // NOI18N
+        Toad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Reducida/Toad.png"))); // NOI18N
         getContentPane().add(Toad, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, -1, -1));
 
         Fantasma.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Reducida/pacman.png"))); // NOI18N
@@ -49,6 +53,18 @@ public class InterfazCarrera extends javax.swing.JFrame {
 
         Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fondo2.png"))); // NOI18N
         getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jProgressBar1.setBackground(new java.awt.Color(204, 204, 255));
+        getContentPane().add(jProgressBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 450, 180, 150));
+
+        jProgressBar2.setBackground(new java.awt.Color(153, 255, 153));
+        getContentPane().add(jProgressBar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 0, 180, 150));
+
+        jProgressBar3.setBackground(new java.awt.Color(255, 204, 204));
+        getContentPane().add(jProgressBar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 150, 180, 150));
+
+        jProgressBar4.setBackground(new java.awt.Color(255, 255, 153));
+        getContentPane().add(jProgressBar4, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 300, 180, 150));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -94,5 +110,9 @@ public class InterfazCarrera extends javax.swing.JFrame {
     private javax.swing.JLabel Fondo;
     private javax.swing.JLabel Sonic;
     private javax.swing.JLabel Toad;
+    private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JProgressBar jProgressBar2;
+    private javax.swing.JProgressBar jProgressBar3;
+    private javax.swing.JProgressBar jProgressBar4;
     // End of variables declaration//GEN-END:variables
 }
