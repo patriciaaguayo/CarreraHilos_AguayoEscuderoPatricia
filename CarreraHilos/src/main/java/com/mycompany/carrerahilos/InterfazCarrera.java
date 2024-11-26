@@ -26,18 +26,29 @@ public class InterfazCarrera extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        Toad = new javax.swing.JLabel();
+        Fantasma = new javax.swing.JLabel();
+        Donkey = new javax.swing.JLabel();
+        Sonic = new javax.swing.JLabel();
+        Fondo = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Toad.setIcon(new javax.swing.ImageIcon("/Users/patriciaaguayo/Desktop/Hilos/CarreraHilos/src/main/Resources/Reducida/Toad.png")); // NOI18N
+        getContentPane().add(Toad, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, -1, -1));
+
+        Fantasma.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Reducida/pacman.png"))); // NOI18N
+        getContentPane().add(Fantasma, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, -1, -1));
+
+        Donkey.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Reducida/donkey.png"))); // NOI18N
+        getContentPane().add(Donkey, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, -1));
+
+        Sonic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Reducida/sonic.png"))); // NOI18N
+        getContentPane().add(Sonic, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 50, 60));
+
+        Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fondo2.png"))); // NOI18N
+        getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -78,5 +89,10 @@ public class InterfazCarrera extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Donkey;
+    private javax.swing.JLabel Fantasma;
+    private javax.swing.JLabel Fondo;
+    private javax.swing.JLabel Sonic;
+    private javax.swing.JLabel Toad;
     // End of variables declaration//GEN-END:variables
 }
