@@ -4,6 +4,9 @@
  */
 package com.mycompany.carrerahilos;
 
+import java.util.concurrent.atomic.AtomicInteger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author patriciaaguayo
@@ -16,6 +19,52 @@ public class InterfazCarrera extends javax.swing.JFrame {
     public InterfazCarrera() {
         initComponents();
     }
+    
+    // Variables para controlar el botón de Start
+    
+    private AtomicInteger hilosTerminados = new AtomicInteger(0);
+    private final int TOTAL_HILOS = 4;
+    private boolean carreraEnCurso = false;
+    
+    // Métodos getter y setter para controlar el estado de la carrera
+    
+    public boolean isCarreraEnCurso() {
+        return carreraEnCurso;
+    }
+    
+    public void setCarreraEnCurso(boolean carreraEnCurso) {
+        this.carreraEnCurso = carreraEnCurso;
+    }
+    
+    // Personaje sonic
+    
+    public javax.swing.JLabel getSonic(){
+        return Sonic;
+    }
+    
+    // Personaje donkey kong
+    
+    public javax.swing.JLabel getDonkey(){
+        return Donkey;
+    }
+    
+    // Personaje Pacman fantasma
+    
+    public javax.swing.JLabel getFantasma(){
+        return Fantasma;
+    }
+    
+    // Personaje Toad
+    
+    public javax.swing.JLabel getToad(){
+        return Toad;
+    }
+    
+    // Meta
+    
+    public javax.swing.JLabel getMeta(){
+        return Meta;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,6 +75,8 @@ public class InterfazCarrera extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        BotonStart = new javax.swing.JLabel();
+        Meta = new javax.swing.JLabel();
         Toad = new javax.swing.JLabel();
         Fantasma = new javax.swing.JLabel();
         Donkey = new javax.swing.JLabel();
@@ -38,6 +89,15 @@ public class InterfazCarrera extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        BotonStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/start.png"))); // NOI18N
+        BotonStart.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BotonStartMouseClicked(evt);
+            }
+        });
+        getContentPane().add(BotonStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+        getContentPane().add(Meta, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 410, 20, 190));
 
         Toad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Reducida/Toad.png"))); // NOI18N
         getContentPane().add(Toad, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, -1, -1));
@@ -69,6 +129,66 @@ public class InterfazCarrera extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BotonStartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonStartMouseClicked
+        
+        // Deshabilitar el botón de Start
+        
+        if (isCarreraEnCurso()) {
+            return;
+        }
+        
+        // Bloquear nuevas carreras
+        
+        setCarreraEnCurso(true);
+        
+        // Deshabilitar el botón de Start
+        
+        BotonStart.setEnabled(false);
+
+        // Reestablecer las posiciones de los personajes
+        
+        Sonic.setLocation(0, Sonic.getLocation().y);
+        Donkey.setLocation(0, Donkey .getLocation().y);
+        Fantasma.setLocation(0, Fantasma.getLocation().y);
+        Toad.setLocation(0, Toad.getLocation().y);
+        
+        // Resetear contador de hilos
+        
+        hilosTerminados.set(0);
+        
+        // Crear los hilos de los personajes
+        
+        Carrera hilo1 = new Carrera(Sonic, this );
+        Carrera hilo2 = new Carrera(Donkey, this );
+        Carrera hilo3 = new Carrera(Fantasma, this );
+        Carrera hilo4 = new Carrera(Toad, this );
+        
+        // Correr los hilos
+        
+        hilo1.start();
+        hilo2.start();
+        hilo3.start();
+        hilo4.start();
+    }//GEN-LAST:event_BotonStartMouseClicked
+
+    // Método para notificar que un hilo ha terminado
+    
+    public synchronized void notificarHiloTerminado() {
+        
+        // Incrementar el contador de hilos terminados
+        
+        int terminados = hilosTerminados.incrementAndGet();
+
+        if (terminados == TOTAL_HILOS) {
+
+            setCarreraEnCurso(false);
+            BotonStart.setEnabled(true);
+            hilosTerminados.set(0);
+
+            JOptionPane.showMessageDialog(null, "La carrera ha terminado. ¡Puedes iniciar otra!");
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -105,9 +225,11 @@ public class InterfazCarrera extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BotonStart;
     private javax.swing.JLabel Donkey;
     private javax.swing.JLabel Fantasma;
     private javax.swing.JLabel Fondo;
+    private javax.swing.JLabel Meta;
     private javax.swing.JLabel Sonic;
     private javax.swing.JLabel Toad;
     private javax.swing.JProgressBar jProgressBar1;
