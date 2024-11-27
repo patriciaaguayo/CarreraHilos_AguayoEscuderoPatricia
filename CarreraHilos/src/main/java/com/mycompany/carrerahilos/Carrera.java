@@ -44,7 +44,7 @@ public class Carrera extends Thread{
                 
                 if(p1<mapa.getMeta().getLocation().x - 10 && p2<mapa.getMeta().getLocation().x - 10 && p3<mapa.getMeta().getLocation().x - 10 && p4<mapa.getMeta().getLocation().x - 10){
                     
-                    eti.setLocation(eti.getLocation().x+10, eti.getLocation().y);
+                    eti.setLocation(eti.getLocation().x+ (int)(Math.random()*20 ), eti.getLocation().y);
                     actualizarBarraProgreso();
                     mapa.repaint();
                     

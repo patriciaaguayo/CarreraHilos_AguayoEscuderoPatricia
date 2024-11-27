@@ -6,6 +6,7 @@ package com.mycompany.carrerahilos;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -26,6 +27,7 @@ public class InterfazCarrera extends javax.swing.JFrame {
      */
     public InterfazCarrera() {
         initComponents();
+        this.setResizable(false);
     }
     
     // Variables para controlar el botón de Start
@@ -83,6 +85,8 @@ public class InterfazCarrera extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Logo = new javax.swing.JLabel();
+        BotonSalir = new javax.swing.JLabel();
         BotonStart = new javax.swing.JLabel();
         Meta = new javax.swing.JLabel();
         Toad = new javax.swing.JLabel();
@@ -97,6 +101,17 @@ public class InterfazCarrera extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo.png"))); // NOI18N
+        getContentPane().add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 30, -1, -1));
+
+        BotonSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/salir.png"))); // NOI18N
+        BotonSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BotonSalirMouseClicked(evt);
+            }
+        });
+        getContentPane().add(BotonSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 20, -1, -1));
 
         BotonStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/start.png"))); // NOI18N
         BotonStart.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -170,10 +185,10 @@ public class InterfazCarrera extends javax.swing.JFrame {
         
         // Crear los hilos de los personajes
         
-        Carrera hilo1 = new Carrera(Sonic, BarraSonic, this, "Sonic" );
-        Carrera hilo2 = new Carrera(Donkey, BarraDonkey, this, "Donkey" );
-        Carrera hilo3 = new Carrera(Fantasma, BarraFantasma, this, "Fantasma" );
-        Carrera hilo4 = new Carrera(Toad, BarraToad, this , "Toad");
+        Carrera hilo1 = new Carrera(Sonic, BarraSonic, this, "SONIC" );
+        Carrera hilo2 = new Carrera(Donkey, BarraDonkey, this, "DONKEY" );
+        Carrera hilo3 = new Carrera(Fantasma, BarraFantasma, this, "FANTASMA" );
+        Carrera hilo4 = new Carrera(Toad, BarraToad, this , "TOAD");
         
         // Correr los hilos
         
@@ -182,11 +197,20 @@ public class InterfazCarrera extends javax.swing.JFrame {
         hilo3.start();
         hilo4.start();
     }//GEN-LAST:event_BotonStartMouseClicked
+
+    private void BotonSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonSalirMouseClicked
+        
+        System.exit(0);
+    }//GEN-LAST:event_BotonSalirMouseClicked
  
      // Resetear las barras de progreso
     
     private void configurarBarrasProgreso() {
     
+        // Cambiar fuente y tamaño del texto
+        
+        Font fuentePersonalizada = new Font("Arial", Font.BOLD, 18); 
+        
         // Configuración de la barra de Sonic
        
         BarraSonic.setValue(0);
@@ -194,7 +218,8 @@ public class InterfazCarrera extends javax.swing.JFrame {
         BarraSonic.setForeground(Color.decode("#FFFFFF"));  // Color del texto
         BarraSonic.setBackground(Color.decode("#A9C9FF")); // Color de fondo
         BarraSonic.setUI(new CustomProgressBarUI(Color.decode("#203CF3")));  // Color del progreso (parte llena)
-
+        BarraSonic.setFont(fuentePersonalizada); // Cambia la letra de la barra
+        
         // Configuración de la barra de Donkey Kong
         
         BarraDonkey.setValue(0);
@@ -202,6 +227,7 @@ public class InterfazCarrera extends javax.swing.JFrame {
         BarraDonkey.setForeground(Color.decode("#FFFFFF"));  // Color del texto
         BarraDonkey.setBackground(Color.decode("#F9C58D")); // Color de fondo
         BarraDonkey.setUI(new CustomProgressBarUI(Color.decode("#D17E27"))); // Color del progreso (parte llena)
+        BarraDonkey.setFont(fuentePersonalizada); // Cambia la letra de la barra
         
         // Configuración de la barra de Fantasma
         
@@ -210,7 +236,8 @@ public class InterfazCarrera extends javax.swing.JFrame {
         BarraFantasma.setForeground(Color.decode("#FFFFFF"));  // Color del texto
         BarraFantasma.setBackground(Color.decode("#FBB5FF")); // Color de fondo
         BarraFantasma.setUI(new CustomProgressBarUI(Color.decode("#F885FF"))); // Color del progreso (parte llena)
-
+        BarraFantasma.setFont(fuentePersonalizada); // Cambia la letra de la barra
+        
         // Configuración de la barra de Toad
         
         BarraToad.setValue(0);
@@ -218,7 +245,8 @@ public class InterfazCarrera extends javax.swing.JFrame {
         BarraToad.setForeground(Color.decode("#FFFFFF"));  // Color del texto
         BarraToad.setBackground(Color.decode("#EC9696")); // Color de fondo
         BarraToad.setUI(new CustomProgressBarUI(Color.decode("#E73A3A"))); // Color del progreso (parte llena)
-
+        BarraToad.setFont(fuentePersonalizada); // Cambia la letra de la barra
+        
     }
     
     // Clase personalizada para cambiar el color de la parte llena del JProgressBar
@@ -331,10 +359,12 @@ public class InterfazCarrera extends javax.swing.JFrame {
     private javax.swing.JProgressBar BarraFantasma;
     private javax.swing.JProgressBar BarraSonic;
     private javax.swing.JProgressBar BarraToad;
+    private javax.swing.JLabel BotonSalir;
     private javax.swing.JLabel BotonStart;
     private javax.swing.JLabel Donkey;
     private javax.swing.JLabel Fantasma;
     private javax.swing.JLabel Fondo;
+    private javax.swing.JLabel Logo;
     private javax.swing.JLabel Meta;
     private javax.swing.JLabel Sonic;
     private javax.swing.JLabel Toad;
