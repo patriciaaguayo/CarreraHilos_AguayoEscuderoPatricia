@@ -6,6 +6,7 @@ package com.mycompany.carrerahilos;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
 
 /**
  *
@@ -13,13 +14,17 @@ import javax.swing.JOptionPane;
  */
 public class Carrera extends Thread{
     
-    private JLabel eti;
-    private InterfazCarrera mapa;
+    private JLabel eti; // Personaje
+    private JProgressBar barraProgreso; // Barra de progreso
+    private InterfazCarrera mapa; // Referencia a la interfaz principal
+    private String nombrePersonaje; // Nombre del personaje
     
-    public Carrera (JLabel eti, InterfazCarrera mapa){
+    public Carrera (JLabel eti, JProgressBar barraProgreso, InterfazCarrera mapa, String nombrePersonaje){
         
         this.eti = eti;
+        this.barraProgreso = barraProgreso;
         this.mapa = mapa;
+        this.nombrePersonaje = nombrePersonaje;
     }
     
     public void run(){
@@ -39,8 +44,11 @@ public class Carrera extends Thread{
                 
                 if(p1<mapa.getMeta().getLocation().x - 10 && p2<mapa.getMeta().getLocation().x - 10 && p3<mapa.getMeta().getLocation().x - 10 && p4<mapa.getMeta().getLocation().x - 10){
                     
-                    eti.setLocation(eti.getLocation().x+5, eti.getLocation().y);
+                    eti.setLocation(eti.getLocation().x+10, eti.getLocation().y);
+                    actualizarBarraProgreso();
                     mapa.repaint();
+                    
+                    actualizarBarraProgreso();
                     
                 }else{
                     break;
@@ -116,6 +124,23 @@ public class Carrera extends Thread{
         // Notifica que ha terminado la carrera
         
         mapa.notificarHiloTerminado();
+    }
+    
+    private void actualizarBarraProgreso() {
+        
+        int posicionActual = eti.getLocation().x; // Distancia recorrida por el personaje
+ 
+        int posicionMeta = mapa.getMeta().getLocation().x; // Posición máxima (meta)
+
+        int progreso = (int) ((double) posicionActual / posicionMeta * 100); // Calcular el porcentaje de avance
+
+        // Actualizar la barra de progreso
+        
+        barraProgreso.setValue(Math.min(progreso, 100)); // No superar el 100%
+        
+        // Mostrar el porcentaje como texto en la barra
+        
+        barraProgreso.setString(nombrePersonaje + ": " + progreso + "%");
     }
     
 }

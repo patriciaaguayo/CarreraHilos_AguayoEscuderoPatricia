@@ -4,8 +4,16 @@
  */
 package com.mycompany.carrerahilos;
 
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.concurrent.atomic.AtomicInteger;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
+import javax.swing.plaf.basic.BasicProgressBarUI;
 
 /**
  *
@@ -82,10 +90,10 @@ public class InterfazCarrera extends javax.swing.JFrame {
         Donkey = new javax.swing.JLabel();
         Sonic = new javax.swing.JLabel();
         Fondo = new javax.swing.JLabel();
-        jProgressBar1 = new javax.swing.JProgressBar();
-        jProgressBar2 = new javax.swing.JProgressBar();
-        jProgressBar3 = new javax.swing.JProgressBar();
-        jProgressBar4 = new javax.swing.JProgressBar();
+        BarraToad = new javax.swing.JProgressBar();
+        BarraSonic = new javax.swing.JProgressBar();
+        BarraDonkey = new javax.swing.JProgressBar();
+        BarraFantasma = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -114,17 +122,17 @@ public class InterfazCarrera extends javax.swing.JFrame {
         Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fondo2.png"))); // NOI18N
         getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jProgressBar1.setBackground(new java.awt.Color(204, 204, 255));
-        getContentPane().add(jProgressBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 450, 180, 150));
+        BarraToad.setBackground(new java.awt.Color(204, 204, 255));
+        getContentPane().add(BarraToad, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 450, 180, 150));
 
-        jProgressBar2.setBackground(new java.awt.Color(153, 255, 153));
-        getContentPane().add(jProgressBar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 0, 180, 150));
+        BarraSonic.setBackground(new java.awt.Color(153, 255, 153));
+        getContentPane().add(BarraSonic, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 0, 180, 150));
 
-        jProgressBar3.setBackground(new java.awt.Color(255, 204, 204));
-        getContentPane().add(jProgressBar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 150, 180, 150));
+        BarraDonkey.setBackground(new java.awt.Color(255, 204, 204));
+        getContentPane().add(BarraDonkey, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 150, 180, 150));
 
-        jProgressBar4.setBackground(new java.awt.Color(255, 255, 153));
-        getContentPane().add(jProgressBar4, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 300, 180, 150));
+        BarraFantasma.setBackground(new java.awt.Color(255, 255, 153));
+        getContentPane().add(BarraFantasma, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 300, 180, 150));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -152,16 +160,20 @@ public class InterfazCarrera extends javax.swing.JFrame {
         Fantasma.setLocation(0, Fantasma.getLocation().y);
         Toad.setLocation(0, Toad.getLocation().y);
         
+        // Configurar y resetear las barras de progreso
+        
+        configurarBarrasProgreso();
+        
         // Resetear contador de hilos
         
         hilosTerminados.set(0);
         
         // Crear los hilos de los personajes
         
-        Carrera hilo1 = new Carrera(Sonic, this );
-        Carrera hilo2 = new Carrera(Donkey, this );
-        Carrera hilo3 = new Carrera(Fantasma, this );
-        Carrera hilo4 = new Carrera(Toad, this );
+        Carrera hilo1 = new Carrera(Sonic, BarraSonic, this, "Sonic" );
+        Carrera hilo2 = new Carrera(Donkey, BarraDonkey, this, "Donkey" );
+        Carrera hilo3 = new Carrera(Fantasma, BarraFantasma, this, "Fantasma" );
+        Carrera hilo4 = new Carrera(Toad, BarraToad, this , "Toad");
         
         // Correr los hilos
         
@@ -170,7 +182,97 @@ public class InterfazCarrera extends javax.swing.JFrame {
         hilo3.start();
         hilo4.start();
     }//GEN-LAST:event_BotonStartMouseClicked
+ 
+     // Resetear las barras de progreso
+    
+    private void configurarBarrasProgreso() {
+    
+        // Configuración de la barra de Sonic
+       
+        BarraSonic.setValue(0);
+        BarraSonic.setStringPainted(true);
+        BarraSonic.setForeground(Color.decode("#FFFFFF"));  // Color del texto
+        BarraSonic.setBackground(Color.decode("#A9C9FF")); // Color de fondo
+        BarraSonic.setUI(new CustomProgressBarUI(Color.decode("#203CF3")));  // Color del progreso (parte llena)
 
+        // Configuración de la barra de Donkey Kong
+        
+        BarraDonkey.setValue(0);
+        BarraDonkey.setStringPainted(true);
+        BarraDonkey.setForeground(Color.decode("#FFFFFF"));  // Color del texto
+        BarraDonkey.setBackground(Color.decode("#F9C58D")); // Color de fondo
+        BarraDonkey.setUI(new CustomProgressBarUI(Color.decode("#D17E27"))); // Color del progreso (parte llena)
+        
+        // Configuración de la barra de Fantasma
+        
+        BarraFantasma.setValue(0);
+        BarraFantasma.setStringPainted(true);
+        BarraFantasma.setForeground(Color.decode("#FFFFFF"));  // Color del texto
+        BarraFantasma.setBackground(Color.decode("#FBB5FF")); // Color de fondo
+        BarraFantasma.setUI(new CustomProgressBarUI(Color.decode("#F885FF"))); // Color del progreso (parte llena)
+
+        // Configuración de la barra de Toad
+        
+        BarraToad.setValue(0);
+        BarraToad.setStringPainted(true);
+        BarraToad.setForeground(Color.decode("#FFFFFF"));  // Color del texto
+        BarraToad.setBackground(Color.decode("#EC9696")); // Color de fondo
+        BarraToad.setUI(new CustomProgressBarUI(Color.decode("#E73A3A"))); // Color del progreso (parte llena)
+
+    }
+    
+    // Clase personalizada para cambiar el color de la parte llena del JProgressBar
+    
+    private static class CustomProgressBarUI extends BasicProgressBarUI {
+        private final Color progressColor;
+
+        public CustomProgressBarUI(Color progressColor) {
+            this.progressColor = progressColor;
+        }
+
+        @Override
+        protected void paintDeterminate(Graphics g, JComponent c) {
+            super.paintDeterminate(g, c);  // Llamar a super para que se dibuje la parte vacía y la base de la barra
+
+            // Obtener las coordenadas y dimensiones de la barra de progreso
+            
+            Rectangle barRect = getBox(c);  // Esto te da el área total de la barra
+            int width = (int) (getAmountFull(c, barRect) * barRect.width);  // Calculamos el ancho del progreso
+
+            // Cambiar el color de la parte llena (progreso)
+            
+            g.setColor(progressColor);
+            g.fillRect(barRect.x, barRect.y, width, barRect.height);  // Rellenamos la parte llena con el color
+
+            // Esto asegura que el texto no sea cubierto por la parte del progreso
+            
+            String progressText = ((JProgressBar) c).getString();
+            
+            if (progressText != null) {
+                
+                FontMetrics metrics = g.getFontMetrics();
+                int textWidth = metrics.stringWidth(progressText);
+                int textHeight = metrics.getHeight();
+                int x = (barRect.width - textWidth) / 2;
+                int y = (barRect.height + textHeight) / 2 - metrics.getDescent();
+                g.setColor(Color.WHITE); // Establecemos el color del texto
+                g.drawString(progressText, barRect.x + x, barRect.y + y);
+            }
+        }
+        
+        protected Rectangle getBox(JComponent c) { // Aquí obtenemos el área total donde se dibuja el progreso
+           
+            return new Rectangle(0, 0, c.getWidth(), c.getHeight());
+        }
+
+        // Método para calcular la cantidad de progreso
+        
+        protected float getAmountFull(JComponent c, Rectangle barRect) {
+            JProgressBar progressBar = (JProgressBar) c;
+            return (float) progressBar.getValue() / progressBar.getMaximum();
+        }
+    }
+    
     // Método para notificar que un hilo ha terminado
     
     public synchronized void notificarHiloTerminado() {
@@ -225,6 +327,10 @@ public class InterfazCarrera extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JProgressBar BarraDonkey;
+    private javax.swing.JProgressBar BarraFantasma;
+    private javax.swing.JProgressBar BarraSonic;
+    private javax.swing.JProgressBar BarraToad;
     private javax.swing.JLabel BotonStart;
     private javax.swing.JLabel Donkey;
     private javax.swing.JLabel Fantasma;
@@ -232,9 +338,5 @@ public class InterfazCarrera extends javax.swing.JFrame {
     private javax.swing.JLabel Meta;
     private javax.swing.JLabel Sonic;
     private javax.swing.JLabel Toad;
-    private javax.swing.JProgressBar jProgressBar1;
-    private javax.swing.JProgressBar jProgressBar2;
-    private javax.swing.JProgressBar jProgressBar3;
-    private javax.swing.JProgressBar jProgressBar4;
     // End of variables declaration//GEN-END:variables
 }
