@@ -35,7 +35,7 @@ public class Carrera extends Thread{
            
             try{
                
-                sleep((int)(Math.random()*80 ));
+                sleep((int)(Math.random()*80 )); // Aquí se modifica la velocidad en la que entran los hilos
                 
                 p1 = mapa.getSonic().getLocation().x;
                 p2 = mapa.getDonkey().getLocation().x;
@@ -44,7 +44,7 @@ public class Carrera extends Thread{
                 
                 if(p1<mapa.getMeta().getLocation().x - 10 && p2<mapa.getMeta().getLocation().x - 10 && p3<mapa.getMeta().getLocation().x - 10 && p4<mapa.getMeta().getLocation().x - 10){
                     
-                    eti.setLocation(eti.getLocation().x+ (int)(Math.random()*5 ), eti.getLocation().y);
+                    eti.setLocation(eti.getLocation().x+ (int)(Math.random()*5 ), eti.getLocation().y); // Aquí se modifica la velocidad a la que van los hilos (cuanto avanzan cuando entran)
                     actualizarBarraProgreso();
                     mapa.repaint();
                     
